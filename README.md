@@ -131,12 +131,17 @@ sudo chmod +x /home/vagrant/gestion-usuarios/db/database.sql
 # Cargamos la base de datos ejecutando los comandos desde el archivo database.sql en MySQL como usuario root.
 sudo mysql -u root < /home/vagrant/gestion-usuarios/db/database.sql
 
+# Definimos variables
+DB_USER='DB_USER'
+DB_HOST='192.168.10.11'
+DB_PASSWORD='ubuntu'
+
 # Accedemos a MySQL para crear un nuevo usuario y darle permisos.
 sudo mysql -u root <<EOF
-DROP USER IF EXISTS '$DB_USER'@'$DB_HOST';  # Eliminamos el usuario si ya existe.
-CREATE USER '$DB_USER'@'$DB_HOST' IDENTIFIED BY '$DB_PASSWORD';  # Creamos un nuevo usuario con su contraseña.
-GRANT ALL PRIVILEGES ON *.* TO '$DB_USER'@'$DB_HOST';  # Damos todos los permisos a ese usuario.
-FLUSH PRIVILEGES;  # Aplicamos los cambios de privilegios.
+DROP USER IF EXISTS '$DB_USER'@'$DB_HOST'; 
+CREATE USER '$DB_USER'@'$DB_HOST' IDENTIFIED BY '$DB_PASSWORD';
+GRANT ALL PRIVILEGES ON *.* TO '$DB_USER'@'$DB_HOST';
+FLUSH PRIVILEGES;
 EOF
 
 # Desactivamos el acceso a Internet eliminando la puerta de enlace predeterminada.
