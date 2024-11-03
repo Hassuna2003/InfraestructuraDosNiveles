@@ -65,16 +65,13 @@ git clone https://github.com/josejuansanchez/iaw-practica-lamp.git /home/vagrant
 sudo cp -r /home/vagrant/gestion-usuarios/src/* /var/www/html/
 
 # Modificamos el archivo config.php para establecer la configuración de la base de datos.
-sudo sed -i "s/'localhost'/'192.168.10.11'/" /var/www/html/src/config.php
-sudo sed -i "s/'database_name_here'/'lamp_db'/" /var/www/html/src/config.php
-sudo sed -i "s/'username_here'/'DB_USER'/" /var/www/html/src/config.php
-sudo sed -i "s/'password_here'/'ubuntu'/" /var/www/html/src/config.php
+sudo sed -i "s/'localhost'/'192.168.10.11'/" /var/www/html/config.php
+sudo sed -i "s/'database_name_here'/'lamp_db'/" /var/www/html/config.php
+sudo sed -i "s/'username_here'/'DB_USER'/" /var/www/html/config.php
+sudo sed -i "s/'password_here'/'ubuntu'/" /var/www/html/config.php
 
 # Copiamos la configuración por defecto de Apache a un nuevo archivo de configuración.
 sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/InfraDosNiveles.conf
-
-# Cambiamos la ruta del documento raíz en el nuevo archivo de configuración.
-sudo sed -i 's|/var/www/html|/var/www/html/src|g' /etc/apache2/sites-available/InfraDosNiveles.conf
 
 # Activamos el nuevo archivo de configuración del sitio.
 sudo a2ensite InfraDosNiveles.conf
@@ -89,7 +86,7 @@ sudo a2dissite 000-default.conf
 sudo systemctl reload apache2
 
 # Cambiamos la propiedad de los archivos en la carpeta src a www-data, que es el usuario de Apache.
-sudo chown -R www-data:www-data /var/www/html/src
+sudo chown -R www-data:www-data /var/www/html/
 
 # Reiniciamos Apache para asegurarnos de que todo funcione correctamente con la nueva configuración.
 sudo systemctl restart apache2
