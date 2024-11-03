@@ -34,6 +34,7 @@ En esta práctica, hemos montado una infraestructura de dos niveles utilizando A
 ## Fichero de Aprovisionamiento Apache
 
 ```bash
+
 # Actualizamos la lista de paquetes disponibles para asegurarnos de que todo esté actualizado.
 sudo apt-get update -y
 
@@ -73,6 +74,9 @@ sudo sed -i "s/'password_here'/'ubuntu'/" /var/www/html/config.php
 # Copiamos la configuración por defecto de Apache a un nuevo archivo de configuración.
 sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/InfraDosNiveles.conf
 
+# Permitimos conexiones entrantes por el puerto 80
+sudo ufw allow 80/tcp
+
 # Activamos el nuevo archivo de configuración del sitio.
 sudo a2ensite InfraDosNiveles.conf
 
@@ -90,6 +94,7 @@ sudo chown -R www-data:www-data /var/www/html/
 
 # Reiniciamos Apache para asegurarnos de que todo funcione correctamente con la nueva configuración.
 sudo systemctl restart apache2
+
 ```
 
 
